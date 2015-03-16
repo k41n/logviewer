@@ -73,7 +73,7 @@
   - source_path: /var/www/railsapps/scoring/shared/log/VTB.log
     dest_path: /tmp/app_VTB.log
     entire: false
-    amount_of_lines: 766
+    amount_of_lines: 784
   - source_path: /var/www/railsapps/scoring/shared/log/mailer.production.log
     dest_path: /tmp/app_mailer.log
     entire: false
@@ -81,7 +81,7 @@
   - source_path: /var/www/railsapps/scoring/shared/log/production.log
     dest_path: /tmp/app_production.log
     entire: false
-    amount_of_lines: 43172530
+    amount_of_lines: 43172902
 - host: 192.168.0.5
   user: root
   port: 54378
@@ -89,7 +89,7 @@
   - source_path: /var/log/audit/audit.log
     dest_path: /tmp/db_audit_diff.log
     entire: false
-    amount_of_lines: 1041421
+    amount_of_lines: 1043376
   - source_path: /var/log/aide/aide.log
     dest_path: /tmp/db_aide_diff.log
     entire: true
