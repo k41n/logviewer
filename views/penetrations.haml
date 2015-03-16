@@ -3,8 +3,16 @@
   %input{ type: 'text', name: 'start_time', value: params[:start_time] }
   &nbsp-&nbsp
   %input{ type: 'text', name: 'end_time', value: params[:end_time] }
+  &nbsp Сервер &nbsp
+  %select{ name: 'server_name' }
+    %option{ value: 'support', selected: params[:server_name]=='support' }= 'Support'
+    %option{ value: 'front', selected: params[:server_name]=='front' }= 'Front'
+    %option{value: 'db', selected: params[:server_name]=='db'}= 'DB'
+    %option{value: 'app', selected: params[:server_name]=='app'}= 'APP'
+    %option{value: 'log', selected: params[:server_name]=='log'}= 'LOG'
+  &nbsp&nbsp&nbsp
   %input{ type: 'submit', value: 'Найти' }
-= will_paginate @penetrations, params: ({ start_time: params[:start_time], end_time: params[:end_time] } if params[:start_time].present?)
+= will_paginate @penetrations, params: ({ start_time: params[:start_time], end_time: params[:end_time], server_name: params[:server_name] } if params[:server_name].present?)
 %br
 %table{ border: '1' }
   %tr

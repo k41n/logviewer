@@ -1,7 +1,7 @@
 class Penetration < ActiveRecord::Base
   def self.analyze_log_files(year)
     #%w(frontend_audit support_audit db_audit app_audit).each do |file_name|
-    %w(alert).each do |file_name|
+    %w(support front app db log).each do |file_name|
       analyze_log_file(file_name, year)
     end
   end

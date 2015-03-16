@@ -14,6 +14,7 @@ server_logs.each do |sl|
       else
         ssh.exec!("AMOUNT_OF_LINES=`cat #{f['source_path']} | wc -l`; tail -`expr $AMOUNT_OF_LINES - #{f['amount_of_lines']}` #{f['source_path']} | bzip2 > #{f['dest_path']}.bz2")
       end
+    ssh.loop
     end
 
     Net::SCP.start(sl['host'], sl['user'], port: sl['port']) do |scp|

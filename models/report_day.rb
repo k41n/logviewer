@@ -3,14 +3,19 @@ class ReportDay < ActiveRecord::Base
   has_many :aide_changes
 
   def self.analyze_log_files
-    %w(aide).each do |file_name|
-      analyze_log_file(file_name)
+    ReportDay.transaction do
+      ReportDay.delete_all
+      AideChange.delete_all
+
+      %w(support_aide front_aide app_aide db_aide log_aide).each do |file_name|
+        analyze_log_file(file_name)
+      end
     end
   end
 
   def self.analyze_log_file(file_name)
     report_day = new(server_name: file_name)
-    File.open("analyzed_logs/#{file_name}.log") do |f|
+    File.open("analyzed_logs/#{file_name}_diff.log") do |f|
       str = f.gets
       while str do
         if match_data = str.match(/^(changed|added|removed):.*/)
