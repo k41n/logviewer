@@ -61,11 +61,12 @@ post '/search_in_production_log' do
 end
 
 get '/bash_history' do
+  TIMEFORMAT = '%Y-%m-%d %H:%M:%S'
   bash_dir = 'bash_history_files/'
   @bash_files_list = Dir.glob("#{bash_dir}*").map { |f_path| f_path.split('/').last }
   @current_bash_file = params[:file_name] || @bash_files_list[0]
   @bash_file_content = File.read(bash_dir + @current_bash_file).force_encoding('UTF-8').encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').gsub("\n", '<br>')
-    #File.read(bash_dir + @current_bash_file).gsub("\n", '<br>')
+  @bash_file_content = @bash_file_content.gsub('#\d{10}$'){ |x| Date.strptime(x, '#%s').strftime(TIMEFORMAT) }
   haml :bash_history, layout: :main
 end
 
