@@ -3,12 +3,16 @@ require 'sinatra/activerecord'
 require 'will_paginate'
 require 'will_paginate/active_record'
 require 'shellwords'
+require 'digest/sha1'
+require 'yaml'
 
 Dir.glob('./{models}/*.rb').each { |file| require file }
 
 set :database_file, 'database.yml'
 set :bind, '0.0.0.0'
 set :port, 55567
+
+authentication = YAML.load_file('authentication.yml')
 
 def get_or_post(path, opts={}, &block)
   get(path, opts, &block)
@@ -25,6 +29,10 @@ end
 #  end
 #  haml :audit, layout: :main
 #end
+
+use Rack::Auth::Basic, 'Restricted Area' do |username, password|
+  username == authentication['username'] && Digest::SHA256.hexdigest(password) == authentication['password']
+end
 
 def logins_list(kind)
   @path = request.path_info
