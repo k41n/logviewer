@@ -12,13 +12,15 @@ class Penetration < ActiveRecord::Base
       while str do
         if str[0..3] == '[**]'
           vulnerability = str.match(/\d\] (?<vulnerability>.*?) \[/)[:vulnerability]
-          f.gets
+          pstr = f.gets
+          priority = pstr.match(/Priority: (?<prio>\d+?)/)[:prio]
           str = f.gets
           create(server_name: file_name,
                  vulnerability: vulnerability,
                  attacker_ip: str.match(/\d (?<attacker_ip>.*?) ->/)[:attacker_ip],
                  attacked_ip: str.match(/-> (?<attacked_ip>.*?)$/)[:attacked_ip],
-                 time_moment: DateTime.parse("#{year}/#{str[0..13]}"))
+                 time_moment: DateTime.parse("#{year}/#{str[0..13]}"),
+                 priority: priority.to_i)
         end
         str = f.gets
       end

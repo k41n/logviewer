@@ -21,6 +21,7 @@
     %th{ width: 170 } Атакуемый IP
     %th{ width: 170 } Время
     %th{ width: 150 } Сервер
+    %th{ width: 20 } Приоритер
 
   - @penetrations.each do |p|
     %tr
@@ -29,3 +30,4 @@
       %td= p.attacked_ip
       %td= p.time_moment.strftime('%Y-%m-%d %H:%M:%S')
       %td= p.server_name
+      %td= p.priority

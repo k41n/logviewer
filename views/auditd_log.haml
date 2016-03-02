@@ -1,0 +1,18 @@
+%br
+%table{ border: '1' }
+  %tr
+    %th Серве
+    %th Время
+    %th Файл
+    %th Действие
+    %th Программа
+    %th Пользователь
+  - @aureport.each do |i|
+    %tr
+      %td= i[:server]
+      %td= i[:time]
+      %td= i[:file]
+      %td= i[:action]
+      %td= i[:exe]
+      %td= i[:user]
+

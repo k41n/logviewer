@@ -5,6 +5,7 @@
   %input{ type: 'text', name: 'end_time', value: params[:end_time] }
   &nbsp Сервер &nbsp
   %select{ name: 'server_name' }
+    %option{value: '', selected: params[:server_name]==''}= '---'
     %option{value: 'support_audit', selected: params[:server_name]=='support_audit'}= 'Support'
     %option{value: 'front_audit', selected: params[:server_name]=='front_audit'}= 'Front'
     %option{value: 'db_audit', selected: params[:server_name]=='db_audit'}= 'DB'

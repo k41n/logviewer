@@ -14,7 +14,7 @@ class Iptable < ActiveRecord::Base
       while str do
         if str.scan(/SRC/).size==1 && str.match(/ SRC=\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} DST/)
 #        if str.include? 'SRC'
-          puts str
+          #puts str
           data = str.split(' ')
           create(
             server_name: file_name,
