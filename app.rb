@@ -86,10 +86,10 @@ get '/bash_history' do
   TIMEFORMAT = '%Y-%m-%d %H:%M:%S'
   bash_dir = 'bash_history_files/'
   @bash_files_list = Dir.glob("#{bash_dir}*").map { |f_path| f_path.split('/').last }
-  @current_bash_file = File.basename(params[:file_name].to_s) || @bash_files_list[0]
+  @current_bash_file = params[:file_name] ? File.basename(params[:file_name]) : @bash_files_list[0]
   begin
-    @bash_file_content = File.read(bash_dir + @current_bash_file).force_encoding('UTF-8').encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-  rescue Errno::ENOENT
+    @bash_file_content = File.read(bash_dir + @current_bash_file.to_s).force_encoding('UTF-8').encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  rescue Errno::ENOENT, Errno::EISDIR
     @bash_file_content = ''
   end
   @bash_file_content = @bash_file_content.gsub(/\#\d{10}$/){ |x| DateTime.strptime(x, '#%s').strftime(TIMEFORMAT)+'--' }.gsub("\n", '<br/>').gsub('--<br/>', ': ')
