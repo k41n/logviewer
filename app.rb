@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'will_paginate'
 require 'will_paginate/active_record'
+require 'shellwords'
 
 Dir.glob('./{models}/*.rb').each { |file| require file }
 
@@ -54,7 +55,8 @@ get '/open_search_form' do
 end
 
 post '/search_in_production_log' do
-  @search_results = `tail -1000000 /var/log/scoring.log | grep -A 5 -B 5 -m 2000 '#{params[:search_string]}' `.
+  search_string = Shellwords.escape(params[:search_string])
+  @search_results = `tail -1000000 /var/log/scoring.log | grep -A 5 -B 5 -m 2000 '#{search_string}' `.
                     force_encoding('UTF-8').encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').
                     gsub(params[:search_string], "<b>#{params[:search_string]}</b>").
                     split("\n--\n")
@@ -76,8 +78,12 @@ get '/bash_history' do
   TIMEFORMAT = '%Y-%m-%d %H:%M:%S'
   bash_dir = 'bash_history_files/'
   @bash_files_list = Dir.glob("#{bash_dir}*").map { |f_path| f_path.split('/').last }
-  @current_bash_file = params[:file_name] || @bash_files_list[0]
-  @bash_file_content = File.read(bash_dir + @current_bash_file).force_encoding('UTF-8').encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  @current_bash_file = File.basename(params[:file_name]) || @bash_files_list[0]
+  begin
+    @bash_file_content = File.read(bash_dir + @current_bash_file).force_encoding('UTF-8').encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  rescue Errno::ENOENT
+    @bash_file_content = ''
+  end
   @bash_file_content = @bash_file_content.gsub(/\#\d{10}$/){ |x| DateTime.strptime(x, '#%s').strftime(TIMEFORMAT)+'--' }.gsub("\n", '<br/>').gsub('--<br/>', ': ')
   haml :bash_history, layout: :main
 end
