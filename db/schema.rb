@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321101646) do
+ActiveRecord::Schema.define(version: 20150407123800) do
 
   create_table "aide_changes", force: true do |t|
     t.integer  "report_day_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140321101646) do
     t.string   "server_name"
     t.string   "user_name"
     t.string   "ip"
-    t.string   "time_moment"
+    t.datetime "time_moment"
     t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -38,6 +38,20 @@ ActiveRecord::Schema.define(version: 20140321101646) do
     t.datetime "updated_at"
   end
 
+  create_table "mysql_logs", force: true do |t|
+    t.string   "action"
+    t.datetime "action_time"
+    t.integer  "connection_id"
+    t.integer  "state"
+    t.text     "query"
+    t.string   "user"
+    t.string   "host"
+    t.string   "ip"
+    t.string   "db"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "penetrations", force: true do |t|
     t.string   "server_name"
     t.string   "vulnerability"
@@ -46,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140321101646) do
     t.datetime "time_moment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "priority"
   end
 
   create_table "report_days", force: true do |t|

@@ -11,9 +11,9 @@
   - @report_days.each do |i|
     %tr
       %td= i.server_name
-      %td= i.time_moment.strftime('%Y-%m-%d %H:%M:%S')
+      %td= i.time_moment.strftime('%Y-%m-%d %H:%M:%S') if i.time_moment
       %td= i.total_added
       %td= i.total_changed
       %td= i.total_removed
       %td
-        %a{href: "/aide/#{i.id}"} Подробнее
+        %a{href: "/aide/#{i.server_name}"} Подробнее

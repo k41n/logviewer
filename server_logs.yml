@@ -1,8 +1,138 @@
 ---
-- host: 130.193.66.173
+- host: 127.0.0.1
   user: root
-  port: 56174
+  port: 54378
   files:
-  - source_path: "/var/log/messages"
-    dest_path: "/tmp/kern_diff.log"
+  - source_path: /var/log/audit/audit.log
+    dest_path: /tmp/support_audit_diff.log
+    entire: false
+    amount_of_lines: 2609646
+  - source_path: /var/log/aide/aide.log
+    dest_path: /tmp/support_aide_diff.log
+    entire: true
+  - source_path: /var/log/snort/alert
+    dest_path: /tmp/support_snort_diff.log
+    entire: false
+    amount_of_lines: 432
+  - source_path: /var/log/iptables.log
+    dest_path: /tmp/support_iptables_diff.log
+    entire: false
+    amount_of_lines: 48931
+  - source_path: /root/.bash_history
+    dest_path: /tmp/support_root_bash_history
+    entire: true
+  - source_path: /home/rt/.bash_history
+    dest_path: /tmp/support_rt_bash_history
+    entire: true
+  - source_path: /home/officer/.bash_history
+    dest_path: /tmp/support_officer_bash_history
+    entire: true
+- host: 192.168.0.3
+  user: root
+  port: 54378
+  files:
+  - source_path: /var/log/audit/audit.log
+    dest_path: /tmp/front_audit_diff.log
+    entire: false
+    amount_of_lines: 2565080
+  - source_path: /var/log/aide/aide.log
+    dest_path: /tmp/front_aide_diff.log
+    entire: true
+  - source_path: /var/log/snort/alert
+    dest_path: /tmp/front_snort_diff.log
+    entire: false
+    amount_of_lines: 59310
+  - source_path: /var/log/iptables.log
+    dest_path: /tmp/front_iptables_diff.log
+    entire: false
+    amount_of_lines: 54212
+  - source_path: /root/.bash_history
+    dest_path: /tmp/front_root_bash_history
+    entire: true
+  - source_path: /home/rt/.bash_history
+    dest_path: /tmp/front_rt_bash_history
+    entire: true
+  - source_path: /home/officer/.bash_history
+    dest_path: /tmp/front_officer_bash_history
+    entire: true
+- host: 192.168.0.2
+  user: root
+  port: 54378
+  files:
+  - source_path: /var/log/audit/audit.log
+    dest_path: /tmp/app_audit_diff.log
+    entire: false
+    amount_of_lines: 2319861
+  - source_path: /var/log/aide/aide.log
+    dest_path: /tmp/app_aide_diff.log
+    entire: true
+  - source_path: /var/log/snort/alert
+    dest_path: /tmp/app_snort_diff.log
+    entire: false
+    amount_of_lines: 0
+  - source_path: /root/.bash_history
+    dest_path: /tmp/app_root_bash_history
+    entire: true
+  - source_path: /home/rt/.bash_history
+    dest_path: /tmp/app_rt_bash_history
+    entire: true
+  - source_path: /var/www/railsapps/scoring/shared/log/production.log
+    dest_path: /tmp/app_production.log
+    entire: false
+    amount_of_lines: 72937728
+  - source_path: /home/officer/.bash_history
+    dest_path: /tmp/app_officer_bash_history
+    entire: true
+- host: 192.168.0.5
+  user: root
+  port: 54378
+  files:
+  - source_path: /var/log/audit/audit.log
+    dest_path: /tmp/db_audit_diff.log
+    entire: false
+    amount_of_lines: 2326962
+  - source_path: /var/log/mysql/audit.log
+    dest_path: /tmp/db_mysql_audit_diff.log
+    entire: false
+    size: 20933280
+    amount_of_lines: 59136
+  - source_path: /var/log/aide/aide.log
+    dest_path: /tmp/db_aide_diff.log
+    entire: true
+  - source_path: /var/log/snort/alert
+    dest_path: /tmp/db_snort_diff.log
+    entire: false
+    amount_of_lines: 1090
+  - source_path: /root/.bash_history
+    dest_path: /tmp/db_root_bash_history
+    entire: true
+  - source_path: /home/rt/.bash_history
+    dest_path: /tmp/db_rt_bash_history
+    entire: true
+  - source_path: /home/officer/.bash_history
+    dest_path: /tmp/db_officer_bash_history
+    entire: true
+- host: 83.222.116.91
+  user: root
+  port: 54378
+  files:
+  - source_path: /var/log/audit/audit.log
+    dest_path: /tmp/log_audit_diff.log
+    entire: false
+    amount_of_lines: 24224
+  - source_path: /var/log/aide/aide.log
+    dest_path: /tmp/log_aide_diff.log
+    entire: true
+  - source_path: /var/log/snort/alert
+    dest_path: /tmp/log_snort_diff.log
+    entire: false
+    amount_of_lines: 0
+  - source_path: /root/.bash_history
+    dest_path: /tmp/log_root_bash_history
+    entire: true
+  - source_path: /home/rt/.bash_history
+    dest_path: /tmp/log_rt_bash_history
+    entire: true
+  - source_path: /home/officer/.bash_history
+    dest_path: /tmp/log_officer_bash_history
     entire: true

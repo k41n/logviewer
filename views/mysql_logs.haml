@@ -1,0 +1,22 @@
+= will_paginate @mysql_logs
+%br
+%table{ border: '1' }
+  %tr
+    %th Действие
+    %th Время
+    %th Статус
+    %th Пользователь
+    %th Хост
+    %th IP
+    %th DB
+    %th Запрос
+  - @mysql_logs.each do |i|
+    %tr
+      %td= i.action
+      %td= i.action_time
+      %td= {0 => 'ОK', 1045 => 'WRONG PASS'}[i.state] || i.state
+      %td= i.user
+      %td= i.host
+      %td= i.ip
+      %td= i.db
+      %td= i.query
